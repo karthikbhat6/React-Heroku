@@ -1,7 +1,8 @@
-import { BrowserRouter } from 'react-router-dom'
+//import { BrowserRouter } from 'react-router-dom';
 var React = require('react');
 var ReactDOM = require('react-dom');
 var App = require('./components/App');
+const http = require('http');
 /*var express = require('express');
 var app = express();
 var path = require('path');*/
@@ -46,17 +47,34 @@ app.get('/', function(req, res) {
 
 app.listen(8080);*/
 
- /*ReactDOM.render(
+ ReactDOM.render(
 	<App />,
 	document.getElementById('app')
 	);
-*/
 
-ReactDOM.render((
+/*var express = require('express');
+var app = express();
+
+app.use(express.static(__dirname + '/'));
+
+app.listen(process.env.PORT || 8080);
+*/
+var port = process.env.PORT||5000;
+console.log(port);
+
+const server = http.createServer((req, res) => {
+  res.end();
+});
+server.on('clientError', (err, socket) => {
+  socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+});
+server.listen(port);
+console.log('success'+port);
+/*ReactDOM.render((
   <BrowserRouter>
     <App />
   </BrowserRouter>
-), document.getElementById('app'));
+), document.getElementById('app'));*/
 
 
 
